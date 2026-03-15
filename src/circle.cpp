@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cmath>
 #include <stdexcept>
-#include "include/circle.h"
+#include "circle.h"
 
 void Circle::recalcFromRadius(double r) {
   radius = r;

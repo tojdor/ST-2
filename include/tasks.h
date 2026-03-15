@@ -3,7 +3,7 @@
 #ifndef INCLUDE_TASKS_H_
 #define INCLUDE_TASKS_H_
 #include <utility>
-#include "include/circle.h"
+#include "circle.h"
 
 double earthRopeTask();
 double poolWalkwayCostTask();

@@ -2,8 +2,8 @@
 
 #include <gtest/gtest.h>
 #include <cstdint>
-#include "include/circle.h"
-#include "include/tasks.h"
+#include "circle.h"
+#include "tasks.h"
 
 constexpr auto EPS = 1e-9;
 

@@ -4,8 +4,8 @@
 #include <cmath>
 #include <utility>
 
-#include "include/circle.h"
-#include "include/tasks.h"
+#include "circle.h"
+#include "tasks.h"
 
 double earthRopeTask() {
   double earthRadius = 6378.1 * 1000;
