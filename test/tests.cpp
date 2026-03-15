@@ -1,7 +1,9 @@
+// Copyright 2022 UNN-CS
+
 #include <gtest/gtest.h>
 #include <cstdint>
-#include "circle.h"
-#include "tasks.h"
+#include "include/circle.h"
+#include "include/tasks.h"
 
 constexpr auto EPS = 1e-9;
 
