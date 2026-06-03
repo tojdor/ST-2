@@ -1,37 +1,25 @@
-
 // Copyright 2022 UNN-CS
+
 #include <cstdint>
-#include <cmath>
-#include <utility>
-
-#include "circle.h"
 #include "tasks.h"
+#include "circle.h"
 
-double earthRopeTask() {
-  double earthRadius = 6378.1 * 1000;
-  double extra = 1.0;
-  Circle circle(earthRadius);
-
-  double radius = circle.getRadius();
-  circle.setFerence(circle.getFerence() + extra);
-
-  double newRadius = circle.getRadius();
-  return newRadius - radius;
+double ropeGap(double sphereRadius, double extraLength) {
+  Circle loop(sphereRadius);
+  loop.setFerence(loop.getFerence() + extraLength);
+  return loop.getRadius() - sphereRadius;
 }
 
-double poolWalkwayCostTask() {
-  Circle pool(3.0);
-  Circle poolWithFence(4.0);
-  double result = 1000.0 * (poolWithFence.getArea() - pool.getArea());
-  return std::round(result * 100.0) / 100.0;
-}
+PoolEstimate estimatePool(double poolRadius, double pathWidth,
+                          double pavementPricePerM2,
+                          double railingPricePerM) {
+  Circle water(poolRadius);
+  Circle border(poolRadius + pathWidth);
 
-double poolFenceCostTask() {
-  Circle poolWithFence(4.0);
-  double result = poolWithFence.getFerence() * 2000.0;
-  return std::round(result * 100.0) / 100.0;
-}
+  double pavementArea = border.getArea() - water.getArea();
 
-std::pair<double, double> poolWalkwayAndFenceCostTask() {
-  return std::make_pair(poolWalkwayCostTask(), poolFenceCostTask());
+  PoolEstimate estimate;
+  estimate.pavementCost = pavementArea * pavementPricePerM2;
+  estimate.railingCost = border.getFerence() * railingPricePerM;
+  return estimate;
 }

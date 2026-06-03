@@ -1,53 +1,43 @@
 // Copyright 2022 UNN-CS
+
 #include <cstdint>
 #include <cmath>
 #include <stdexcept>
+
 #include "circle.h"
 
-void Circle::recalcFromRadius(double r) {
-  radius = r;
-  ference = 2.0 * PI * radius;  // 2πr
-  area = PI * radius * radius;  // πr^2
-}
-
-Circle::Circle(double _rad) {
-  if (_rad < 0.0) {
-    throw std::invalid_argument("radius cannot be negative");
+void Circle::ensureNonNegative(double value, const char* what) {
+  if (value < 0.0) {
+    throw std::invalid_argument(what);
   }
-  recalcFromRadius(_rad);
 }
 
-void Circle::setRadius(double _rad) {
-  if (_rad < 0.0) {
-    throw std::invalid_argument("radius cannot be negative");
-  }
-  recalcFromRadius(_rad);
+void Circle::syncFromRadius(double radius) {
+  radius_ = radius;
+  ference_ = 2.0 * kPi * radius_;
+  area_ = kPi * radius_ * radius_;
 }
 
-void Circle::setFerence(double _fer) {
-  if (_fer < 0.0) {
-    throw std::invalid_argument("ference cannot be negative");
-  }
-  double r = _fer / (2.0 * PI);  // C:(2π)
-  recalcFromRadius(r);
+Circle::Circle(double radius) : radius_(0.0), ference_(0.0), area_(0.0) {
+  ensureNonNegative(radius, "radius must be non-negative");
+  syncFromRadius(radius);
 }
 
-void Circle::setArea(double _area) {
-  if (_area < 0.0) {
-    throw std::invalid_argument("area cannot be negative");
-  }
-  double r = std::sqrt(_area / PI);  // √(S:π)
-  recalcFromRadius(r);
+void Circle::setRadius(double radius) {
+  ensureNonNegative(radius, "radius must be non-negative");
+  syncFromRadius(radius);
 }
 
-double Circle::getRadius() {
-  return radius;
+void Circle::setFerence(double ference) {
+  ensureNonNegative(ference, "ference must be non-negative");
+  syncFromRadius(ference / (2.0 * kPi));
 }
 
-double Circle::getFerence() {
-  return ference;
+void Circle::setArea(double area) {
+  ensureNonNegative(area, "area must be non-negative");
+  syncFromRadius(std::sqrt(area / kPi));
 }
 
-double Circle::getArea() {
-  return area;
-}
+double Circle::getRadius() const { return radius_; }
+double Circle::getFerence() const { return ference_; }
+double Circle::getArea() const { return area_; }
