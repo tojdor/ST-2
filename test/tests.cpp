@@ -1,4 +1,4 @@
-// Copyright 2026 Idris
+// Copyright 2022 UNN-CS
 
 #include <gtest/gtest.h>
 
